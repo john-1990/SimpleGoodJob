@@ -55,13 +55,15 @@ while line:
             zsAnsItem.append(line)
     else:
         if len(zsAnsItem) != 0:
-            zsAns.append(zsAnsItem)
+            zsAnsCopy = list(zsAnsItem)
             zsAnsItem.clear()
+            zsAns.append(zsAnsCopy)
             bQue = True
 
     line = f.readline()
-zsAns.append(zsAnsItem)
 f.close()
+
+
 
 #print(len(zsQue))
 #print(len(zsAns))
@@ -83,7 +85,7 @@ def but():
     img.save(imgName + ".jpg")
 
     cvImg = Image.open(imgName + ".jpg")
-    cropped = cvImg.crop((43, 111, 370, 397))
+    cropped = cvImg.crop((40, 147, 379, 390))
     strLines = pytesseract.image_to_string(cropped,lang='chi_sim')
     cropped.save(imgName + ".png")
     code = strLines.replace(" ","")
@@ -108,13 +110,11 @@ def but():
         for j in range(len(ansItem)):
             strLine = strLine  + ansItem[j] + "\n"
         bValue = a=tkinter.messagebox.askokcancel('提示', strLine)
-        print(bValue)
         if bValue == True:
             break
 
 tkinter.Button(root, text='Next',command=but).pack()
 root.mainloop()
-
 
 
 
